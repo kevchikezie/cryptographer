@@ -1,13 +1,19 @@
 {
     "name": "kevchikezie/cryptographer",
-    "description": "A PHP class used for encrypting and decrypting data",
+    "description": "A PHP library for RSA encryption and decryption using the OpenSSL extension",
     "type": "library",
     "license": "MIT",
     "keywords": [
         "library",
         "openssl",
+        "encryption",
+        "decryption",
+        "cryptography",
         "encrypt",
-        "decrypt"
+        "decrypt",
+        "php",
+        "crypto",
+        "rsa"
     ],
     "authors": [
         {

@@ -5,22 +5,26 @@ namespace Kevchikezie;
 class Cryptographer
 {
 	/**
-	 * Encrypt a value using the public key
+	 * Encrypt a value using the public key. You also have the option to pass 
+	 * the values to be encrypted as an array or string
 	 *
-	 * @param  string  $value
+	 * @param  string|array  $values
 	 * @param  string  $publicKey
-	 * @return string
+	 * @return string|array
 	 */
-	public static function encrypt($value, $publicKey)
+	public static function encrypt($data, string $publicKey)
 	{
-		// Format the public key to make it valid for the openssl_public_encrypt() function
-		$publicKey = 	"-----BEGIN PUBLIC KEY-----\n" 
-						. wordwrap($publicKey, 64, "\n", true) .
-						"\n-----END PUBLIC KEY-----";
+			if (is_array($data)) {
+				$encrypted = [];
 
-		openssl_public_encrypt($value, $encrypted, $publicKey);
+		        foreach ($data as $key => $value) {
+		            $encrypted[$key] = self::encrypter($value, $publicKey);
+		        }
 
-		return base64_encode($encrypted);
+		        return $encrypted;
+		    }
+
+		    return self::encrypter($data, $publicKey);
 	}
 
 	/**
@@ -42,6 +46,27 @@ class Cryptographer
 		openssl_private_decrypt($encryptedValue, $decrypted, $privateKey);
 
 		return $decrypted;
+	}
+
+	/**
+	 * Perform the encryption
+	 *
+	 * @param  string  $value
+	 * @param  string  $publicKey
+	 * @return string
+	 */
+	private static function encrypter($value, $publicKey)
+	{
+		if ($value == '') return $value;
+
+		// Format the public key to make it valid for the openssl_public_encrypt() function
+		$publicKey = 	"-----BEGIN PUBLIC KEY-----\n" 
+						. wordwrap($publicKey, 64, "\n", true) .
+						"\n-----END PUBLIC KEY-----";
+
+		openssl_public_encrypt($value, $encrypted, $publicKey);
+
+		return base64_encode($encrypted);
 	}
 
 }

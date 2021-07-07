@@ -1,0 +1,29 @@
+{
+    "name": "kevchikezie/cryptographer",
+    "description": "A PHP class used for encrypting and decrypting data",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "library",
+        "openssl",
+        "encrypt",
+        "decrypt"
+    ],
+    "authors": [
+        {
+            "name": "Kelvin Chikezie",
+            "email": "kevchike@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.2"
+    },
+    "autoload" : {
+        "psr-4" : {
+            "Kevchikezie\\" : "src/"
+        }
+    }
+}

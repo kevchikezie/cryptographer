@@ -22,5 +22,26 @@ class Cryptographer
 
 		return base64_encode($encrypted);
 	}
-	
+
+	/**
+	 * Decrypt an encrypted value using the RSA private key
+	 *
+	 * @param  string  $encryptedValue
+	 * @param  string  $privateKey
+	 * @return string
+	 */
+	public static function decrypt($encryptedValue, $privateKey)
+	{
+		$encryptedValue = base64_decode($encryptedValue);
+		
+		// Format the private key to make it valid for the openssl_private_decrypt() function
+		$privateKey = 	"-----BEGIN RSA PRIVATE KEY-----\n" 
+						. wordwrap($privateKey, 64, "\n", true) .
+						"\n-----END RSA PRIVATE KEY-----";
+
+		openssl_private_decrypt($encryptedValue, $decrypted, $privateKey, OPENSSL_PKCS1_PADDING);
+
+		return $decrypted;
+	}
+
 }

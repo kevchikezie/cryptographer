@@ -5,10 +5,10 @@ namespace Kevchikezie;
 class Cryptographer
 {
 	/**
-	 * Encrypt a value using the public key. You also have the option to pass 
-	 * the values to be encrypted as an array or string
+	 * Encrypt data using the public key. You also have the option to pass 
+	 * the data to be encrypted as an array or string
 	 *
-	 * @param  string|array  $values
+	 * @param  string|array  $data
 	 * @param  string  $publicKey
 	 * @return string|array
 	 */
@@ -28,24 +28,26 @@ class Cryptographer
 	}
 
 	/**
-	 * Decrypt an encrypted value using the private key
+	 * Decrypt data value using the private key. You also have the 
+	 * option to pass the data to be decrypted as an array or string
 	 *
-	 * @param  string  $encryptedValue
+	 * @param  string|array  $data
 	 * @param  string  $privateKey
-	 * @return string
+	 * @return string|array
 	 */
-	public static function decrypt($encryptedValue, $privateKey)
+	public static function decrypt($data, string $privateKey)
 	{
-		$encryptedValue = base64_decode($encryptedValue);
-		
-		// Format the private key to make it valid for the openssl_private_decrypt() function
-		$privateKey = 	"-----BEGIN PRIVATE KEY-----\n" 
-						. wordwrap($privateKey, 64, "\n", true) .
-						"\n-----END PRIVATE KEY-----";
+			if (is_array($data)) {
+				$decrypted = [];
 
-		openssl_private_decrypt($encryptedValue, $decrypted, $privateKey);
+		        foreach ($data as $key => $value) {
+		            $decrypted[$key] = self::decrypter($value, $privateKey);
+		        }
 
-		return $decrypted;
+		        return $decrypted;
+		    }
+
+		    return self::decrypter($data, $privateKey);
 	}
 
 	/**
@@ -67,6 +69,29 @@ class Cryptographer
 		openssl_public_encrypt($value, $encrypted, $publicKey);
 
 		return base64_encode($encrypted);
+	}
+
+	/**
+	 * Perform the decryption
+	 *
+	 * @param  string  $encryptedValue
+	 * @param  string  $privateKey
+	 * @return string
+	 */
+	private static function decrypter($encryptedValue, $privateKey)
+	{
+		if ($encryptedValue == '') return $encryptedValue;
+
+		$encryptedValue = base64_decode($encryptedValue);
+		
+		// Format the private key to make it valid for the openssl_private_decrypt() function
+		$privateKey = 	"-----BEGIN PRIVATE KEY-----\n" 
+						. wordwrap($privateKey, 64, "\n", true) .
+						"\n-----END PRIVATE KEY-----";
+
+		openssl_private_decrypt($encryptedValue, $decrypted, $privateKey);
+
+		return $decrypted;
 	}
 
 }

@@ -1,5 +1,7 @@
 /vendor
 /composer.lock
+/public
+.idea
 .env
 .env.backup
 .phpunit.result.cache

@@ -56,7 +56,7 @@ class Cryptographer
 	 * @param  string  $bit
 	 * @return array
 	 */
-	public function generate(string $bit = '2048')
+	public static function generate(string $bit = '2048')
 	{
 		$bit = intval($bit); // convert string to int
 		$acceptedBits = [512, 1024, 2048, 4096];

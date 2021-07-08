@@ -3,7 +3,7 @@
     "description": "A PHP library for RSA encryption and decryption using the OpenSSL extension",
     "type": "library",
     "license": "MIT",
-    "homepage": "https://github.com/kevchikezie/cryptographer,
+    "homepage": "https://github.com/kevchikezie/cryptographer",
     "keywords": [
         "library",
         "openssl",

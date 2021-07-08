@@ -51,6 +51,39 @@ class Cryptographer
 	}
 
 	/**
+	 * Generate a pair of private and public RSA key
+	 * 
+	 * @param  string  $bit
+	 * @return array
+	 */
+	public function generate(string $bit = '2048')
+	{
+		$bit = intval($bit); // convert string to int
+		$acceptedBits = [512, 1024, 2048, 4096];
+		$bit = in_array($bit, $acceptedBits) ? $bit : 2048;
+
+		$config = [
+			'digest_alg' => 'sha512',
+			'private_key_bits' => $bit,
+			'private_key_type' => OPENSSL_KEYTYPE_RSA,
+		];
+		 
+		$resource = openssl_pkey_new($config);
+
+		// Extract private key from the pair
+		openssl_pkey_export($resource, $privateKey);
+
+		// Extract public key from the pair
+		$keyDetails = openssl_pkey_get_details($resource);
+		$publicKey = $keyDetails["key"];
+
+		return [
+			'private' => $privateKey, 
+			'public' => $publicKey
+		];
+	}
+
+	/**
 	 * Perform the encryption
 	 *
 	 * @param  string  $value

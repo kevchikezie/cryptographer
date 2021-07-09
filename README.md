@@ -1,9 +1,5 @@
 # Cryptographer
 
-[![Latest Stable Version](http://poser.pugx.org/kevchikezie/cryptographer/v)](https://packagist.org/packages/kevchikezie/cryptographer)
-[![Total Downloads](http://poser.pugx.org/kevchikezie/cryptographer/downloads)](https://packagist.org/packages/kevchikezie/cryptographer)
-[![License](http://poser.pugx.org/kevchikezie/cryptographer/license)](https://packagist.org/packages/kevchikezie/cryptographer)
-
 A minimal PHP library for RSA encryption and decryption. This library was built 
 around the PHP OpenSSL extension.
 

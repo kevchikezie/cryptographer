@@ -120,4 +120,16 @@ class CryptographerTest extends TestCase
 		$this->assertEquals($array[2], $decryptedArray2[2]);
 	}
 
+	/** @test */
+	public function  generate_private_and_publoc_rsa_keys() 
+	{
+		$keys = Cryptographer::generate();
+		$this->assertTrue(is_array($keys));
+		$this->assertTrue(count($keys) == '2');
+		$this->assertTrue(isset($keys['private']));
+		$this->assertTrue(isset($keys['public']));
+		$this->assertTrue(! empty($keys['private']));
+		$this->assertTrue(! empty($keys['public']));
+	}
+
 }

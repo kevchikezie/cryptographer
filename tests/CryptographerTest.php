@@ -121,7 +121,7 @@ class CryptographerTest extends TestCase
 	}
 
 	/** @test */
-	public function  generate_private_and_publoc_rsa_keys() 
+	public function  generate_private_and_public_rsa_keys() 
 	{
 		$keys = Cryptographer::generate();
 		$this->assertTrue(is_array($keys));
